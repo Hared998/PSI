@@ -10,7 +10,7 @@ class Data(object):
         return 'Pierwsze'
 
     def __repr__(self):
-        return 'Drugie'
+        return 'Drgie'
 
 print('%s %r' % (Data(), Data()))
 print('{0!s} {0!r}'.format(Data()))

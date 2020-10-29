@@ -26,7 +26,7 @@ tab.extend(tab2)
 tab.insert(0,0)
 print(tab)
 indeksy = ("15553", "23345", "10045", "345013")
-imina = ('Adrian Merchel', "Bartek Kowalski", "Rober Stefanczyk", "Maciej Markowski")
+imina = ('Adrian Medchel', "Baetek Kowalski", "Rober Stefanczyk", "Maciej Markowski")
 polaczone = indeksy, imina
 
 print(polaczone)
