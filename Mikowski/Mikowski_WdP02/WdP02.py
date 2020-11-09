@@ -34,6 +34,8 @@ def function4(celcius,temperature_type):
         return (celcius*1.8)+32
     elif temperature_type=="Rankine":
         return (celcius + 273.15)*1.8
+    else :
+        return "Podaj temperature!"
 print(function4(15,"Kelvin"))
 print(function4(15,"Fahrenheit"))
 print(function4(15,"Rankine"))
@@ -59,3 +61,5 @@ def function5(text):
     print(text[::-1])
 function5("koteł")
 print('\n')
+
+

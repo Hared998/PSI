@@ -1,5 +1,5 @@
-import file_manager
+from file_manager import FileManager
 
-plik = FileManager('plik')
-plik.read()
-plik.update("Coś tam")
+plik = FileManager('plik.txt')
+plik.update_file("Hello there!")
+print(plik.read_file())
