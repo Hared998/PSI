@@ -44,3 +44,36 @@ student3= ("Karol", 111111)
 lista_studentów = [student1, student2,  student3]
 slownik_studentów = {student1[0]:student1[1],student2[0]:student2[1],student3[0]:student3[1]}
 print(slownik_studentów)
+
+
+print("\n")
+
+
+numerytel = [111111111,222222222,111111111,111111111,222222222,999999999]
+tel = set(numerytel)
+print(tel)
+
+
+print("\n")
+
+
+for x in range(1,11,1):
+    print(x)
+
+
+print("\n")
+
+
+for x in range(100,19,-5):
+    print(x)
+
+
+print("\n")
+
+
+slownik={"klucz1": 1, "klucz2":2}
+slownik2={"klucz3":3, "klucz4":4}
+lista3=[slownik,slownik2]
+for element in lista3:
+    for klucz in element:
+        print("klucz: %s ma wartość: %s " % (klucz,element[klucz]))
