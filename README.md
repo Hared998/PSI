@@ -1,2 +1,2 @@
 # PSI
-Projekt do PSI PSIIIII
+#Model bazy danych
