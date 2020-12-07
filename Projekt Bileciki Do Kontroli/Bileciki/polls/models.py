@@ -1,6 +1,7 @@
 from django.db import models
-
 # Create your models here.
+
+
 class Klient(models.Model):
     idKlient = models.AutoField(primary_key=True)
     Imie = models.CharField(max_length=50)
@@ -14,6 +15,7 @@ class Klient(models.Model):
 class Przystanek(models.Model):
     idPrzysanek = models.AutoField(primary_key=True)
     Nazwa = models.CharField(max_length=100)
+
 
 class Trasa(models.Model):
     idTrasa = models.AutoField(primary_key=True)
