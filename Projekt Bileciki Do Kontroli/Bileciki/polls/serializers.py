@@ -20,7 +20,7 @@ class KursSerializer(serializers.ModelSerializer):
         fields = ['Przewoznik','ilosc_miejsc','Cena']
 
 
-class KupioneBilety(serializers.ModelSerializer):
+class KupioneBiletySerializer(serializers.ModelSerializer):
     class Meta:
         model = KupioneBilety
         fields = ['idBilet','idKlient','idKurs']
