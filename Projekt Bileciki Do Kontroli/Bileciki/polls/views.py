@@ -26,7 +26,7 @@ class TrasaLista(generics.ListCreateAPIView):
     permission_classes = permissions.IsAdminUser,
     queryset = Trasa.objects.all()
     serializer_class = TrasaSerializer
-
+#coś nowego
 
 class KursLista(generics.ListCreateAPIView):
     permission_classes = permissions.IsAdminUser,
