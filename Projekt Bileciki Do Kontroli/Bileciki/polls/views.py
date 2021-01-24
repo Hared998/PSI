@@ -9,38 +9,32 @@ from .serializers import KlientSerializer, PrzystanekSerializer, KursSerializer,
 from django.contrib.auth.models import User
 
 
-class KlientAPIView(APIView):
+class KlientLista(generics.ListCreateAPIView):
+    permission_classes = permissions.IsAdminUser,
+    queryset = Klient.objects.all()
     serializer_class = KlientSerializer
 
-    def get_querryset(self):
-        klienci = Klient.objects.all()
-        return klienci
 
-    def get(self,request, *args, **kwargs):
-        klienci = self.get_querryset()
-        serializer = KlientSerializer(klienci, many=True)
+class PrzystanekLista(generics.ListCreateAPIView):
 
-        return Response(serializer.data)
+    permission_classes = permissions.IsAdminUser,
+    queryset = Przystanek.objects.all()
+    serializer_class = PrzystanekSerializer
 
 
-
-class ListaKursow(generics.ListCreateAPIView):
-    queryset = Kurs.objects.all()
-    serializer_class = KursSerializer
-    name = 'kurs-list'
-    filter_fields = ['Przewoznik','ilosc_miejsc','Cena']
-    search_fields = ['Przewoznik', 'Cena']
-    ordering_fields = ['Przewoznik', 'Cena']
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
-class TrasaList(generics.ListCreateAPIView):
+class TrasaLista(generics.ListCreateAPIView):
+    permission_classes = permissions.IsAdminUser,
     queryset = Trasa.objects.all()
     serializer_class = TrasaSerializer
-    filter_class = 'TrasaFilter'
-    name = 'Trasa-list'
-    ordering_fields = ['IdKurs', 'czas']
 
+
+class KursLista(generics.ListCreateAPIView):
+    permission_classes = permissions.IsAdminUser,
+    queryset = Kurs.objects.all()
+    serializer_class = KursSerializer
+
+
+class BiletyLista(generics.ListCreateAPIView):
+    permission_classes = permissions.IsAuthenticatedOrReadOnly,
+    queryset = KupioneBilety.objects.all()
+    serializer_class = KupioneBiletySerializer
