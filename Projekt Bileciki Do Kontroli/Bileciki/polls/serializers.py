@@ -29,7 +29,7 @@ class KupioneBiletySerializer(serializers.ModelSerializer):
 class TrasaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trasa
-        fields = ['czas','idPrzystanek','idKurs']
+        fields = ['czas','idPrzystanek']
 
         def create(self, validated_time):
             if(validated_time == datetime.now):
