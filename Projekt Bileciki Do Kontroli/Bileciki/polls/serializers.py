@@ -1,41 +1,36 @@
 from rest_framework import serializers
-from .models import Klient, Przystanek, Kurs, KupioneBilety, Trasa
-from datetime import datetime
+from .models import Stop, Track, Client, Ticket
 
-class KlientSerializer(serializers.ModelSerializer):
+
+class StopSerializer(serializers.HyperlinkedModelSerializer):
+    tracks = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='track-detail')
+
     class Meta:
-        model = Klient
-        fields = ['Imie','Nazwisko','Wiek','NrTel','Email','RodzajUlgi']
+        model = Stop
+        fields = ['pk', 'url', 'name', 'tracks']
 
 
-class PrzystanekSerializer(serializers.ModelSerializer):
+class TrackSerializer(serializers.HyperlinkedModelSerializer):
+    stop = serializers.SlugRelatedField(queryset=Stop.objects.all(), slug_field='name')
+    tickets = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='ticket-detail')
+
     class Meta:
-        model = Przystanek
-        fields = ['Nazwa']
+        model = Track
+        fields = ['pk', 'url', 'track_name', 'start_date', 'stop', 'tickets']
 
 
-class KursSerializer(serializers.ModelSerializer):
+class ClientSerializer(serializers.HyperlinkedModelSerializer):
+    tickets = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='ticket-detail')
+
     class Meta:
-        model = Kurs
-        fields = ['Przewoznik','ilosc_miejsc','Cena']
+        model = Client
+        fields = ['url', 'pk', 'name', 'surname', 'birth', 'address', 'tickets']
 
 
-class KupioneBiletySerializer(serializers.ModelSerializer):
+class TicketSerializer(serializers.HyperlinkedModelSerializer):
+    buyer = serializers.SlugRelatedField(queryset=Client.objects.all(), slug_field='')
+    track = serializers.SlugRelatedField(queryset=Track.objects.all(), slug_field='track_name')
+
     class Meta:
-        model = KupioneBilety
-        fields = ['idBilet','idKlient','idKurs']
-
-
-class TrasaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Trasa
-        fields = ['czas','idPrzystanek']
-
-        def create(self, validated_time):
-            if(validated_time == datetime.now):
-                return Comment(**validated_time)
-            return Comment("WRONG")
-        def IsExpired(self):
-            data = self.get_initial()
-            if(data.get("czas") <= datetime.now):
-                return Comment("Przedawniona podróż")
+        model = Ticket
+        fields = ['pk', 'url', 'buyer', 'track', 'price']

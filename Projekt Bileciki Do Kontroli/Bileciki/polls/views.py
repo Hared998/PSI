@@ -1,40 +1,64 @@
-from django.shortcuts import render
 from rest_framework import generics
-from rest_framework.reverse import reverse
 from rest_framework import permissions
+from django_filters import DateTimeFilter, FilterSet
+from rest_framework.reverse import reverse
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from .models import Klient, Przystanek, Kurs, KupioneBilety, Trasa
-from .serializers import KlientSerializer, PrzystanekSerializer, KursSerializer, KupioneBiletySerializer,TrasaSerializer
-from django.contrib.auth.models import User
+from .models import Stop, Track, Client, Ticket
+from .serializers import StopSerializer, TrackSerializer, ClientSerializer, TicketSerializer
 
 
-class KlientLista(generics.ListCreateAPIView):
-    permission_classes = permissions.IsAdminUser,
-    queryset = Klient.objects.all()
-    serializer_class = KlientSerializer
+class StopList(generics.ListCreateAPIView):
+    queryset = Stop.objects.all()
+    serializer_class = StopSerializer
+    name = 'stop-list'
 
 
-class PrzystanekLista(generics.ListCreateAPIView):
-
-    permission_classes = permissions.IsAdminUser,
-    queryset = Przystanek.objects.all()
-    serializer_class = PrzystanekSerializer
-
-
-class TrasaLista(generics.ListCreateAPIView):
-    permission_classes = permissions.IsAdminUser,
-    queryset = Trasa.objects.all()
-    serializer_class = TrasaSerializer
-#coś nowego
-
-class KursLista(generics.ListCreateAPIView):
-    permission_classes = permissions.IsAdminUser,
-    queryset = Kurs.objects.all()
-    serializer_class = KursSerializer
+class StopDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Stop.objects.all()
+    serializer_class = StopSerializer
+    name = 'stop-detail'
 
 
-class BiletyLista(generics.ListCreateAPIView):
-    permission_classes = permissions.IsAuthenticatedOrReadOnly,
-    queryset = KupioneBilety.objects.all()
-    serializer_class = KupioneBiletySerializer
+class TrackList(generics.ListCreateAPIView):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
+    name = 'track-list'
+
+
+class TrackDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerializer
+    name = 'track-detail'
+
+
+class ClientList(generics.ListCreateAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    name = 'client-list'
+
+
+class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+    name = 'client-detail'
+
+
+class TicketList(generics.ListCreateAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TrackSerializer
+    name = 'ticket-list'
+
+
+class TicketDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Ticket.objects.all()
+    serializer_class = TrackSerializer
+    name = 'ticket-detail'
+
+class ApiRoot(generics.GenericAPIView):
+    name = 'api-root'
+
+    def get(self, request , *args, **kwargs):
+        return Response({'stops': reverse(StopList.name, request=request),
+                         'tracks': reverse(TrackList.name, request=request),
+                         'clients': reverse(ClientList.name, request=request),
+                         'tickets': reverse(TicketList.name, request=request)})
