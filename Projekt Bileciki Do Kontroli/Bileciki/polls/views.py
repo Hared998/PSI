@@ -45,14 +45,15 @@ class ClientDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class TicketList(generics.ListCreateAPIView):
     queryset = Ticket.objects.all()
-    serializer_class = TrackSerializer
+    serializer_class = TicketSerializer
     name = 'ticket-list'
 
 
 class TicketDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ticket.objects.all()
-    serializer_class = TrackSerializer
+    serializer_class = TicketSerializer
     name = 'ticket-detail'
+
 
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'

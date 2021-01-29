@@ -8,6 +8,6 @@ urlpatterns = [
     path('clients',views.ClientList.as_view(), name=views.ClientList.name),
     path('clients<int:pk>',views.ClientDetail.as_view(), name=views.ClientDetail.name),
     path('tickets',views.TicketList.as_view(), name=views.TicketList.name),
-    path('tickets<int:pk>',views.TrackDetail.as_view(), name=views.TrackDetail.name),
+    path('tickets<int:pk>',views.TicketDetail.as_view(), name=views.TicketDetail.name),
     path('',views.ApiRoot.as_view(), name=views.ApiRoot.name),
     ]

@@ -28,7 +28,7 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TicketSerializer(serializers.HyperlinkedModelSerializer):
-    buyer = serializers.SlugRelatedField(queryset=Client.objects.all(), slug_field='')
+    buyer = serializers.SlugRelatedField(queryset=Client.objects.all(), slug_field='surname')
     track = serializers.SlugRelatedField(queryset=Track.objects.all(), slug_field='track_name')
 
     class Meta:
