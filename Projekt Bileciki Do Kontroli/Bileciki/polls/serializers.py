@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from .models import Stop, Track, Client, Ticket
-
+from django.contrib.auth.models import User
 
 class StopSerializer(serializers.HyperlinkedModelSerializer):
+
     tracks = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='track-detail')
 
     class Meta:
@@ -28,9 +29,20 @@ class ClientSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class TicketSerializer(serializers.HyperlinkedModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
     buyer = serializers.SlugRelatedField(queryset=Client.objects.all(), slug_field='surname')
     track = serializers.SlugRelatedField(queryset=Track.objects.all(), slug_field='track_name')
 
     class Meta:
         model = Ticket
-        fields = ['pk', 'url', 'buyer', 'track', 'price']
+        fields = ['pk', 'url', 'owner', 'buyer', 'track', 'price']
+class UserBiletSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = ['url','track']
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    tickets = TicketSerializer(many=True,read_only=True)
+    class Meta:
+        model = User
+        fields = ['url','pk','username','tickets']
